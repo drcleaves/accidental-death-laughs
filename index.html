@@ -3,72 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Accidental Death of an Anarchist &mdash; LAUGHS Live Tracker</title>
+  <title>Accidental Death of an Anarchist &mdash; LAUGHS Student Logger</title>
   
-  <!-- Dyslexia & High-Readability Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800&family=Outfit:wght@500;700;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Lightweight QR Code Generator CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
   <style>
     :root {
-      --bg-dark: #070b14;
-      --bg-surface: #0f172a;
-      --bg-card: #1e293b;
-      --bg-card-hover: #27354f;
-      --border-color: #334155;
+      --bg-dark: #0a0f1d;
+      --bg-surface: #111827;
+      --bg-card: #1f2937;
+      --bg-card-hover: #374151;
+      --border-color: #374151;
       --border-focus: #38bdf8;
       
-      --text-main: #f8fafc;
-      --text-dim: #94a3b8;
-      --text-muted: #64748b;
+      --text-main: #f9fafb;
+      --text-dim: #9ca3af;
+      --text-muted: #6b7280;
 
-      /* LAUGHS Diagnostic Palette (Dr Cleaves Grid Standard) */
-      --lead-color: #3b82f6; /* Levels of Status */
-      --lead-glow: rgba(59, 130, 246, 0.35);
-      --lead-bg: rgba(59, 130, 246, 0.14);
+      /* LAUGHS Diagnostic Palette */
+      --lead-color: #3b82f6;
+      --lead-bg: rgba(59, 130, 246, 0.15);
       
-      --arcs-color: #f59e0b; /* Acceleration */
-      --arcs-glow: rgba(245, 158, 11, 0.35);
-      --arcs-bg: rgba(245, 158, 11, 0.14);
+      --arcs-color: #f59e0b;
+      --arcs-bg: rgba(245, 158, 11, 0.15);
       
-      --undo-color: #10b981; /* Undercut & Reset */
-      --undo-glow: rgba(16, 185, 129, 0.35);
-      --undo-bg: rgba(16, 185, 129, 0.14);
+      --undo-color: #10b981;
+      --undo-bg: rgba(16, 185, 129, 0.15);
       
-      --gags-color: #ef4444; /* Grievances & Traps */
-      --gags-glow: rgba(239, 68, 68, 0.35);
-      --gags-bg: rgba(239, 68, 68, 0.14);
+      --gags-color: #ef4444;
+      --gags-bg: rgba(239, 68, 68, 0.15);
       
-      --hide-color: #8b5cf6; /* Hidden Conflict */
-      --hide-glow: rgba(139, 92, 246, 0.35);
-      --hide-bg: rgba(139, 92, 246, 0.14);
+      --hide-color: #8b5cf6;
+      --hide-bg: rgba(139, 92, 246, 0.15);
       
-      --step-color: #ec4899; /* Speed & Rhythm */
-      --step-glow: rgba(236, 72, 153, 0.35);
-      --step-bg: rgba(236, 72, 153, 0.14);
+      --step-color: #ec4899;
+      --step-bg: rgba(236, 72, 153, 0.15);
 
       --accent-cyan: #38bdf8;
-      
-      --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-      --font-display: 'Outfit', var(--font-main);
-      --font-accessible: 'Lexend', sans-serif;
-    }
-
-    /* BDA Light Mode (British Dyslexia Association Palette) */
-    body.light-mode {
-      --bg-dark: #f4f7ea;
-      --bg-surface: #e8f0ee;
-      --bg-card: #ffffff;
-      --bg-card-hover: #f1f5f9;
-      --border-color: #afcad0;
-      --border-focus: #2077bb;
-      --text-main: #0e4467;
-      --text-dim: #334155;
-      --text-muted: #64748b;
+      --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
     * {
@@ -83,75 +53,65 @@
       background-color: var(--bg-dark);
       color: var(--text-main);
       min-height: 100vh;
+      padding: 16px;
       display: flex;
       flex-direction: column;
-      background-image: 
-        radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.05) 0%, transparent 40%),
-        radial-gradient(circle at 85% 85%, rgba(139, 92, 246, 0.04) 0%, transparent 40%);
-    }
-
-    .view-container {
-      display: none;
-      width: 100%;
-      height: 100%;
-      min-height: 100vh;
-    }
-
-    .view-container.active {
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Landing Screen */
-    #viewLanding {
       align-items: center;
-      justify-content: center;
-      padding: 24px;
     }
 
-    .landing-card {
+    .app-container {
+      max-width: 600px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Header */
+    .header-box {
+      text-align: center;
+      padding: 12px;
       background: var(--bg-surface);
       border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 32px 28px;
-      max-width: 520px;
-      width: 100%;
-      box-shadow: 0 12px 32px rgba(0,0,0,0.4);
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+      border-radius: 12px;
     }
 
-    .landing-header { text-align: center; }
-
-    .landing-badge {
+    .header-badge {
       display: inline-block;
-      background: rgba(56, 189, 248, 0.15);
-      color: var(--accent-cyan);
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 800;
-      padding: 4px 10px;
-      border-radius: 999px;
-      text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-bottom: 8px;
+      text-transform: uppercase;
+      color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.15);
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-bottom: 6px;
       border: 1px solid rgba(56, 189, 248, 0.3);
     }
 
-    .landing-title {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
+    .header-title {
+      font-size: 1.35rem;
       font-weight: 800;
       letter-spacing: -0.02em;
       color: #fff;
-      line-height: 1.25;
     }
-    body.light-mode .landing-title { color: #0e4467; }
 
-    .landing-sub {
-      font-size: 0.85rem;
+    .header-sub {
+      font-size: 0.78rem;
       color: var(--text-dim);
-      margin-top: 6px;
+      margin-top: 4px;
+    }
+
+    /* Student & Row Setup Card */
+    .setup-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
     .form-group {
@@ -161,7 +121,7 @@
     }
 
     .form-label {
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 700;
       color: var(--text-dim);
       text-transform: uppercase;
@@ -171,171 +131,123 @@
     .form-input {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
-      color: var(--text-main);
-      padding: 12px 14px;
+      color: #fff;
+      padding: 10px 14px;
       border-radius: 8px;
       font-size: 0.95rem;
       font-weight: 600;
       outline: none;
-      transition: border-color 0.15s;
     }
     .form-input:focus { border-color: var(--accent-cyan); }
 
-    .btn-block {
-      width: 100%;
-      padding: 14px;
-      border-radius: 10px;
-      font-size: 0.95rem;
-      font-weight: 800;
-      cursor: pointer;
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: all 0.15s;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #0284c7, #0369a1);
-      color: #fff;
-      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);
-    }
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(2, 132, 199, 0.5);
-    }
-
-    .btn-teacher {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      color: var(--text-dim);
-      font-size: 0.85rem;
-    }
-    .btn-teacher:hover {
-      background: var(--bg-card-hover);
-      color: var(--text-main);
-      border-color: var(--accent-cyan);
-    }
-
-    .row-selector-grid {
+    .row-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 8px;
     }
 
-    .row-pill-btn {
+    .row-btn {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       color: var(--text-main);
-      padding: 10px 8px;
+      padding: 10px 6px;
       border-radius: 8px;
-      font-size: 0.8rem;
-      font-weight: 700;
       cursor: pointer;
-      text-align: center;
-      transition: all 0.15s;
       display: flex;
       flex-direction: column;
+      align-items: center;
       gap: 2px;
+      transition: all 0.12s;
     }
-    .row-pill-btn .row-letter {
-      font-family: var(--font-display);
-      font-size: 1.15rem;
+    .row-btn .row-letter {
+      font-size: 1.2rem;
       font-weight: 900;
     }
-    .row-pill-btn .row-name {
+    .row-btn .row-name {
       font-size: 0.65rem;
-      opacity: 0.8;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      font-weight: 600;
+      opacity: 0.85;
+      text-align: center;
     }
-    .row-pill-btn.selected {
+    .row-btn.selected {
       border-color: #fff;
-      box-shadow: 0 0 12px currentColor;
+      box-shadow: 0 0 10px currentColor;
     }
-    .row-pill-btn.lead.selected { background: var(--lead-bg); color: var(--lead-color); border-color: var(--lead-color); }
-    .row-pill-btn.arcs.selected { background: var(--arcs-bg); color: var(--arcs-color); border-color: var(--arcs-color); }
-    .row-pill-btn.undo.selected { background: var(--undo-bg); color: var(--undo-color); border-color: var(--undo-color); }
-    .row-pill-btn.gags.selected { background: var(--gags-bg); color: var(--gags-color); border-color: var(--gags-color); }
-    .row-pill-btn.hide.selected { background: var(--hide-bg); color: var(--hide-color); border-color: var(--hide-color); }
-    .row-pill-btn.step.selected { background: var(--step-bg); color: var(--step-color); border-color: var(--step-color); }
+    .row-btn.lead.selected { background: var(--lead-bg); color: var(--lead-color); border-color: var(--lead-color); }
+    .row-btn.arcs.selected { background: var(--arcs-bg); color: var(--arcs-color); border-color: var(--arcs-color); }
+    .row-btn.undo.selected { background: var(--undo-bg); color: var(--undo-color); border-color: var(--undo-color); }
+    .row-btn.gags.selected { background: var(--gags-bg); color: var(--gags-color); border-color: var(--gags-color); }
+    .row-btn.hide.selected { background: var(--hide-bg); color: var(--hide-color); border-color: var(--hide-color); }
+    .row-btn.step.selected { background: var(--step-bg); color: var(--step-color); border-color: var(--step-color); }
 
-    /* Student View */
-    #viewStudent {
-      padding: 12px;
-      gap: 12px;
-      max-width: 540px;
-      margin: 0 auto;
-    }
-
-    .student-top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    /* Master Clock Card */
+    .clock-card {
       background: var(--bg-surface);
       border: 1px solid var(--border-color);
-      padding: 10px 14px;
-      border-radius: 12px;
-    }
-
-    .student-user-info {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .student-avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: #0284c7;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 0.85rem;
-      color: #fff;
-    }
-
-    .student-meta { display: flex; flex-direction: column; }
-    .student-name { font-weight: 800; font-size: 0.9rem; line-height: 1.1; }
-    .student-row-tag { font-size: 0.7rem; font-weight: 700; color: var(--text-dim); }
-
-    .student-clock-box {
+      border-radius: 14px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
-      align-items: flex-end;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
     }
 
-    .student-clock {
-      font-family: var(--font-display);
-      font-size: 1.25rem;
+    .clock-display {
+      font-size: 3rem;
       font-weight: 900;
-      color: var(--accent-cyan);
+      color: #38bdf8;
+      letter-spacing: 0.05em;
       font-variant-numeric: tabular-nums;
       line-height: 1;
+      text-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
     }
 
-    .student-sync-status {
-      font-size: 0.65rem;
-      color: #4ade80;
+    .btn-timer-main {
+      width: 100%;
+      padding: 16px;
+      border-radius: 12px;
+      font-size: 1.15rem;
+      font-weight: 900;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(2, 132, 199, 0.4);
+      transition: all 0.15s;
+    }
+    .btn-timer-main:active { transform: scale(0.98); }
+    .btn-timer-main.running {
+      background: linear-gradient(135deg, #e11d48, #be123c);
+      box-shadow: 0 4px 16px rgba(225, 29, 72, 0.4);
+    }
+
+    .timer-nudges {
       display: flex;
-      align-items: center;
-      gap: 4px;
-      margin-top: 3px;
+      gap: 8px;
+      width: 100%;
     }
-
-    .student-tap-canvas {
+    .btn-nudge {
       flex: 1;
+      padding: 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-dim);
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-nudge:active { background: var(--bg-card-hover); color: #fff; }
+
+    /* Fast-Tap Buttons */
+    .tap-section {
       display: flex;
       flex-direction: column;
       gap: 10px;
-      min-height: 380px;
     }
 
-    .tap-banner {
+    .tap-instruction {
       font-size: 0.75rem;
       font-weight: 700;
       text-transform: uppercase;
@@ -344,795 +256,274 @@
       text-align: center;
     }
 
-    .tap-btn-group {
+    .tap-buttons-wrap {
       display: flex;
       flex-direction: column;
       gap: 10px;
-      flex: 1;
     }
 
-    .fast-tap-btn {
-      flex: 1;
-      border-radius: 14px;
+    .tap-btn {
       border: 2px solid;
+      border-radius: 12px;
       padding: 16px;
+      cursor: pointer;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-      cursor: pointer;
-      position: relative;
-      transition: transform 0.08s, filter 0.08s;
+      gap: 4px;
+      text-align: left;
       user-select: none;
       -webkit-user-select: none;
       touch-action: manipulation;
+      transition: transform 0.08s, filter 0.08s;
     }
-
-    .fast-tap-btn:active {
+    .tap-btn:active {
       transform: scale(0.97);
       filter: brightness(1.25);
     }
 
-    .fast-tap-code {
-      font-family: var(--font-display);
-      font-size: 1.4rem;
+    .tap-btn-header {
+      font-size: 1.15rem;
       font-weight: 900;
-      line-height: 1;
       display: flex;
       align-items: center;
       gap: 6px;
     }
-
-    .fast-tap-title {
-      font-size: 1.05rem;
+    .tap-btn-title {
+      font-size: 1rem;
       font-weight: 800;
-      margin-top: 4px;
-      line-height: 1.2;
+      color: #fff;
     }
-
-    .fast-tap-desc {
+    .tap-btn-desc {
       font-size: 0.78rem;
       opacity: 0.85;
-      margin-top: 3px;
       line-height: 1.3;
     }
 
-    .fast-tap-btn.lead { background: var(--lead-bg); border-color: var(--lead-color); color: #fff; }
-    .fast-tap-btn.lead .fast-tap-code { color: var(--lead-color); }
-    .fast-tap-btn.arcs { background: var(--arcs-bg); border-color: var(--arcs-color); color: #fff; }
-    .fast-tap-btn.arcs .fast-tap-code { color: var(--arcs-color); }
-    .fast-tap-btn.undo { background: var(--undo-bg); border-color: var(--undo-color); color: #fff; }
-    .fast-tap-btn.undo .fast-tap-code { color: var(--undo-color); }
-    .fast-tap-btn.gags { background: var(--gags-bg); border-color: var(--gags-color); color: #fff; }
-    .fast-tap-btn.gags .fast-tap-code { color: var(--gags-color); }
-    .fast-tap-btn.hide { background: var(--hide-bg); border-color: var(--hide-color); color: #fff; }
-    .fast-tap-btn.hide .fast-tap-code { color: var(--hide-color); }
-    .fast-tap-btn.step { background: var(--step-bg); border-color: var(--step-color); color: #fff; }
-    .fast-tap-btn.step .fast-tap-code { color: var(--step-color); }
+    .tap-btn.lead { background: var(--lead-bg); border-color: var(--lead-color); }
+    .tap-btn.lead .tap-btn-header { color: var(--lead-color); }
 
-    .student-ticker-card {
+    .tap-btn.arcs { background: var(--arcs-bg); border-color: var(--arcs-color); }
+    .tap-btn.arcs .tap-btn-header { color: var(--arcs-color); }
+
+    .tap-btn.undo { background: var(--undo-bg); border-color: var(--undo-color); }
+    .tap-btn.undo .tap-btn-header { color: var(--undo-color); }
+
+    .tap-btn.gags { background: var(--gags-bg); border-color: var(--gags-color); }
+    .tap-btn.gags .tap-btn-header { color: var(--gags-color); }
+
+    .tap-btn.hide { background: var(--hide-bg); border-color: var(--hide-color); }
+    .tap-btn.hide .tap-btn-header { color: var(--hide-color); }
+
+    .tap-btn.step { background: var(--step-bg); border-color: var(--step-color); }
+    .tap-btn.step .tap-btn-header { color: var(--step-color); }
+
+    /* Logged List & OneNote Export */
+    .log-card {
       background: var(--bg-surface);
       border: 1px solid var(--border-color);
       border-radius: 12px;
-      padding: 10px 12px;
-      max-height: 150px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
-    }
-
-    .student-ticker-title {
-      font-size: 0.68rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--text-dim);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .student-ticker-feed {
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      font-size: 0.75rem;
-    }
-
-    .ticker-pill {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 8px;
-      border-radius: 6px;
-      background: var(--bg-card);
-      border-left: 3px solid;
-      animation: fadeIn 0.2s ease-out;
-    }
-    .ticker-pill.lead { border-left-color: var(--lead-color); }
-    .ticker-pill.arcs { border-left-color: var(--arcs-color); }
-    .ticker-pill.undo { border-left-color: var(--undo-color); }
-    .ticker-pill.gags { border-left-color: var(--gags-color); }
-    .ticker-pill.hide { border-left-color: var(--hide-color); }
-    .ticker-pill.step { border-left-color: var(--step-color); }
-
-    .ticker-time { font-weight: 800; color: var(--accent-cyan); font-size: 0.7rem; }
-    .ticker-text { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .ticker-author { font-size: 0.65rem; color: var(--text-dim); }
-
-    /* Teacher View */
-    #viewTeacher {
-      padding: 16px 20px;
-      gap: 16px;
-      max-width: 1500px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    .master-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
       gap: 12px;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 12px;
     }
 
-    .master-title-group { display: flex; flex-direction: column; gap: 3px; }
-    .master-title-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-
-    .master-title {
-      font-family: var(--font-display);
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: #fff;
+    .log-header-row {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 8px;
     }
-    body.light-mode .master-title { color: #0e4467; }
-
-    .master-badge {
-      background: linear-gradient(135deg, #0284c7, #0369a1);
-      color: #fff;
-      font-size: 0.68rem;
+    .log-title {
+      font-size: 0.85rem;
       font-weight: 800;
-      padding: 3px 8px;
-      border-radius: 4px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      color: #fff;
     }
-
-    .master-sub { font-size: 0.8rem; color: var(--text-dim); }
-
-    .master-header-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .header-btn {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      color: var(--text-dim);
-      padding: 6px 12px;
-      border-radius: 6px;
+    .log-count {
       font-size: 0.75rem;
       font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      transition: all 0.15s;
-    }
-    .header-btn:hover {
-      color: var(--text-main);
-      border-color: var(--accent-cyan);
-      background: var(--bg-card);
-    }
-
-    .master-clock-bar {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      padding: 16px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
-    }
-
-    .clock-display-group {
-      display: flex;
-      align-items: baseline;
-      gap: 14px;
-    }
-
-    .master-timer {
-      font-family: var(--font-display);
-      font-size: 2.8rem;
-      font-weight: 900;
-      letter-spacing: 0.04em;
-      color: #38bdf8;
-      text-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
-      font-variant-numeric: tabular-nums;
-      line-height: 1;
-    }
-
-    .clock-status-pill {
-      font-size: 0.72rem;
-      font-weight: 800;
-      padding: 4px 10px;
-      border-radius: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      background: rgba(56, 189, 248, 0.15);
-      color: #38bdf8;
-      border: 1px solid rgba(56, 189, 248, 0.3);
-    }
-
-    .clock-status-pill.running {
-      background: rgba(34, 197, 94, 0.2);
-      color: #4ade80;
-      border-color: rgba(34, 197, 94, 0.4);
-      animation: pulseGlow 1.5s infinite;
-    }
-
-    @keyframes pulseGlow {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.6; }
-    }
-
-    .master-timer-controls {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .btn-timer {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
-      padding: 10px 18px;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: 800;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.15s;
-    }
-    .btn-timer:hover {
-      border-color: var(--accent-cyan);
-      transform: translateY(-1px);
-    }
-    .btn-timer.primary {
-      background: linear-gradient(135deg, #0284c7, #0369a1);
-      color: #fff;
-      border: 1px solid var(--accent-cyan);
-      box-shadow: 0 0 16px rgba(56, 189, 248, 0.35);
-    }
-    .btn-timer.primary.playing {
-      background: linear-gradient(135deg, #e11d48, #be123c);
-      border-color: #fda4af;
-      box-shadow: 0 0 16px rgba(225, 29, 72, 0.4);
-    }
-
-    .btn-nudge { padding: 8px 12px; font-size: 0.78rem; background: var(--bg-surface); }
-
-    .room-info-pill {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      padding: 6px 14px;
-      border-radius: 8px;
-      font-size: 0.8rem;
-    }
-
-    .room-code-tag {
-      font-family: var(--font-display);
-      font-weight: 900;
       color: var(--accent-cyan);
-      letter-spacing: 1px;
     }
 
-    .master-grid-layout {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 16px;
-    }
-    @media (max-width: 1024px) {
-      .master-grid-layout { grid-template-columns: 1fr; }
-    }
-
-    .timeline-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .card-head-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .card-title {
-      font-size: 0.85rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    body.light-mode .card-title { color: #0e4467; }
-
-    .swimlanes-wrap {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      background: var(--bg-dark);
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 12px;
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    .swimlane-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      height: 38px;
-    }
-
-    .swimlane-label {
-      width: 110px;
-      font-size: 0.72rem;
-      font-weight: 800;
-      white-space: nowrap;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .swimlane-track {
-      flex: 1;
-      height: 100%;
-      background: var(--bg-card);
-      border-radius: 6px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .swimlane-dot {
-      position: absolute;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      box-shadow: 0 0 8px currentColor;
-      cursor: pointer;
-      transition: transform 0.1s;
-    }
-    .swimlane-dot:hover {
-      transform: translate(-50%, -50%) scale(1.6);
-      z-index: 10;
-    }
-
-    .master-cursor {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: #38bdf8;
-      box-shadow: 0 0 8px #38bdf8;
-      z-index: 5;
-      pointer-events: none;
-      left: 0%;
-      transition: left 0.25s linear;
-    }
-
-    .scene-ruler {
-      display: flex;
-      justify-content: space-between;
-      padding: 4px 10px 0 120px;
-      font-size: 0.68rem;
-      color: var(--text-muted);
-      border-top: 1px dashed var(--border-color);
-    }
-
-    .stream-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      max-height: 600px;
-    }
-
-    .stream-feed-list {
-      flex: 1;
+    .log-list {
+      max-height: 220px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      padding-right: 4px;
+      gap: 6px;
     }
 
-    .stream-event-item {
+    .log-item {
       background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-left: 4px solid;
-      border-radius: 8px;
-      padding: 10px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      animation: slideIn 0.25s ease-out;
-    }
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(-8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .stream-event-item.lead { border-left-color: var(--lead-color); }
-    .stream-event-item.arcs { border-left-color: var(--arcs-color); }
-    .stream-event-item.undo { border-left-color: var(--undo-color); }
-    .stream-event-item.gags { border-left-color: var(--gags-color); }
-    .stream-event-item.hide { border-left-color: var(--hide-color); }
-    .stream-event-item.step { border-left-color: var(--step-color); }
-
-    .event-top {
+      border-radius: 6px;
+      padding: 8px 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      font-size: 0.8rem;
+      border-left: 3px solid;
     }
-
-    .event-time {
-      font-family: var(--font-display);
+    .log-item-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .log-time {
       font-weight: 800;
       color: var(--accent-cyan);
-      font-size: 0.85rem;
     }
-
-    .event-author {
-      font-size: 0.72rem;
-      color: var(--text-dim);
-      font-weight: 600;
-    }
-
-    .event-principle {
-      font-size: 0.9rem;
-      font-weight: 800;
+    .log-text {
+      font-weight: 700;
       color: #fff;
     }
-    body.light-mode .event-principle { color: #0e4467; }
-
-    .event-pillar-name {
-      font-size: 0.72rem;
-      opacity: 0.8;
+    .log-del-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-weight: 800;
+      padding: 2px 6px;
     }
+    .log-del-btn:hover { color: #f87171; }
 
-    .modal-backdrop {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.75);
-      backdrop-filter: blur(4px);
-      z-index: 100;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    .modal-backdrop.active { display: flex; }
-
-    .modal-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 24px;
-      max-width: 520px;
+    .btn-export-onenote {
       width: 100%;
-      box-shadow: 0 16px 40px rgba(0,0,0,0.6);
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .qr-container {
-      background: #fff;
-      padding: 16px;
-      border-radius: 12px;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      background: #0f766e;
+      color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(15, 118, 110, 0.35);
+      transition: all 0.15s;
     }
+    .btn-export-onenote:hover { background: #115e59; }
+    .btn-export-onenote:active { transform: scale(0.98); }
 
-    .toast-box {
+    /* Toast popup */
+    .toast {
       position: fixed;
-      bottom: 24px;
-      right: 24px;
+      bottom: 20px;
       background: #0284c7;
       color: #fff;
       padding: 10px 16px;
       border-radius: 8px;
       font-size: 0.85rem;
       font-weight: 700;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
       display: none;
-      z-index: 200;
-      animation: fadeIn 0.15s ease-out;
+      z-index: 100;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
     }
   </style>
 </head>
 <body>
 
-  <!-- VIEW 1: LANDING & JOIN SCREEN -->
-  <div id="viewLanding" class="view-container active">
-    <div class="landing-card">
-      <div class="landing-header">
-        <span class="landing-badge">Dario Fo &bull; Accidental Death of an Anarchist</span>
-        <h1 class="landing-title">The LAUGHS Live Tracker</h1>
-        <p class="landing-sub">Active observation studio for the 1983 televised Belt & Braces performance</p>
+  <div class="app-container">
+
+    <!-- Header -->
+    <div class="header-box">
+      <span class="header-badge">Dario Fo &bull; Accidental Death of an Anarchist</span>
+      <h1 class="header-title">LAUGHS Student Logger</h1>
+      <p class="header-sub">Observation Tool for 1983 Belt &amp; Braces Performance (1hr 12m 57s)</p>
+    </div>
+
+    <!-- Student & Row Setup -->
+    <div class="setup-card">
+      <div class="form-group">
+        <label class="form-label" for="studentNameInput">Your Name</label>
+        <input type="text" id="studentNameInput" class="form-input" placeholder="e.g. Maya or Alex" autocomplete="off">
       </div>
 
       <div class="form-group">
-        <label class="form-label" for="inputStudentName">Your Name / Initials</label>
-        <input type="text" id="inputStudentName" class="form-input" placeholder="e.g. Maya or Alex" autocomplete="off">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Select Your Assigned Row / Track</label>
-        <div class="row-selector-grid">
-          <button type="button" class="row-pill-btn lead selected" onclick="selectRow('LEAD')">
+        <label class="form-label">Select Your Assigned Row / Pillar</label>
+        <div class="row-grid">
+          <button type="button" class="row-btn lead selected" onclick="setRow('LEAD')">
             <span class="row-letter" style="color:var(--lead-color);">L</span>
             <span class="row-name">Levels of Status</span>
           </button>
-          <button type="button" class="row-pill-btn arcs" onclick="selectRow('ARCS')">
+          <button type="button" class="row-btn arcs" onclick="setRow('ARCS')">
             <span class="row-letter" style="color:var(--arcs-color);">A</span>
             <span class="row-name">Acceleration</span>
           </button>
-          <button type="button" class="row-pill-btn undo" onclick="selectRow('UNDO')">
+          <button type="button" class="row-btn undo" onclick="setRow('UNDO')">
             <span class="row-letter" style="color:var(--undo-color);">U</span>
-            <span class="row-name">Undercut & Reset</span>
+            <span class="row-name">Undercut &amp; Reset</span>
           </button>
-          <button type="button" class="row-pill-btn gags" onclick="selectRow('GAGS')">
+          <button type="button" class="row-btn gags" onclick="setRow('GAGS')">
             <span class="row-letter" style="color:var(--gags-color);">G</span>
-            <span class="row-name">Grievances & Traps</span>
+            <span class="row-name">Grievances &amp; Traps</span>
           </button>
-          <button type="button" class="row-pill-btn hide" onclick="selectRow('HIDE')">
+          <button type="button" class="row-btn hide" onclick="setRow('HIDE')">
             <span class="row-letter" style="color:var(--hide-color);">H</span>
             <span class="row-name">Hidden Conflict</span>
           </button>
-          <button type="button" class="row-pill-btn step" onclick="selectRow('STEP')">
+          <button type="button" class="row-btn step" onclick="setRow('STEP')">
             <span class="row-letter" style="color:var(--step-color);">S</span>
-            <span class="row-name">Speed & Rhythm</span>
+            <span class="row-name">Speed &amp; Rhythm</span>
           </button>
         </div>
       </div>
+    </div>
 
-      <div class="form-group">
-        <label class="form-label" for="inputRoomCode">Studio Room Code</label>
-        <input type="text" id="inputRoomCode" class="form-input" value="fo-l6th" autocomplete="off" style="text-transform:lowercase;">
-      </div>
-
-      <button type="button" class="btn-block btn-primary" onclick="joinAsStudent()">
-        Join as Student (Fast-Tap Remote)
+    <!-- Master Clock Card -->
+    <div class="clock-card">
+      <div class="clock-display" id="clockDisplay">00:00:00</div>
+      
+      <button type="button" class="btn-timer-main" id="btnPlayPause" onclick="toggleTimer()">
+        &#9654; START CLOCK (3, 2, 1, PLAY!)
       </button>
 
-      <button type="button" class="btn-block btn-teacher" onclick="openTeacherMaster()">
-        Open Teacher Master Dashboard (Projector / Laptop)
+      <div class="timer-nudges">
+        <button type="button" class="btn-nudge" onclick="nudge(-10)">-10s</button>
+        <button type="button" class="btn-nudge" onclick="nudge(-5)">-5s</button>
+        <button type="button" class="btn-nudge" onclick="nudge(5)">+5s</button>
+        <button type="button" class="btn-nudge" onclick="nudge(10)">+10s</button>
+        <button type="button" class="btn-nudge" onclick="resetTimer()">Reset</button>
+      </div>
+    </div>
+
+    <!-- Fast-Tap Buttons -->
+    <div class="tap-section">
+      <span class="tap-instruction">Tap the moment you observe this comic element on screen</span>
+      <div class="tap-buttons-wrap" id="buttonsWrap"></div>
+    </div>
+
+    <!-- My Logged Moments -->
+    <div class="log-card">
+      <div class="log-header-row">
+        <span class="log-title">My Recorded Moments</span>
+        <span class="log-count" id="logCountTag">0 logged</span>
+      </div>
+
+      <div class="log-list" id="logList">
+        <div style="font-size:0.75rem; color:var(--text-muted); text-align:center; padding:12px;">
+          No moments logged yet. Start the clock and tap when you see an element!
+        </div>
+      </div>
+
+      <button type="button" class="btn-export-onenote" onclick="copyForOneNote()">
+        Copy My Logs for OneNote
       </button>
     </div>
+
   </div>
 
-  <!-- VIEW 2: STUDENT FAST-TAP REMOTE -->
-  <div id="viewStudent" class="view-container">
-    <div class="student-top-bar">
-      <div class="student-user-info">
-        <div class="student-avatar" id="studentAvatarLetter">L</div>
-        <div class="student-meta">
-          <span class="student-name" id="studentDisplayName">Maya</span>
-          <span class="student-row-tag" id="studentRowTag">Row L &mdash; Levels of Status</span>
-        </div>
-      </div>
-      <div class="student-clock-box">
-        <span class="student-clock" id="studentClock">00:00:00</span>
-        <span class="student-sync-status">&#9679; Live Sync</span>
-      </div>
-    </div>
+  <div class="toast" id="toastBox">Event Logged!</div>
 
-    <div class="student-tap-canvas">
-      <span class="tap-banner">Tap the second you observe this comic element</span>
-      <div class="tap-btn-group" id="studentButtonsContainer"></div>
-    </div>
-
-    <div class="student-ticker-card">
-      <div class="student-ticker-title">
-        <span>Live Cohort Feed</span>
-        <span id="studentFeedCount" style="color:var(--accent-cyan);">0 events</span>
-      </div>
-      <div class="student-ticker-feed" id="studentFeedList">
-        <div style="font-size:0.75rem; color:var(--text-muted); text-align:center; padding:10px;">
-          Listening for classmates' annotations...
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- VIEW 3: TEACHER MASTER DASHBOARD -->
-  <div id="viewTeacher" class="view-container">
-    <header class="master-header">
-      <div class="master-title-group">
-        <div class="master-title-row">
-          <h1 class="master-title">Accidental Death of an Anarchist</h1>
-          <span class="master-badge">LAUGHS Grid Live</span>
-        </div>
-        <p class="master-sub">Televised 1983 Gavin Richards / Belt & Braces Broadcast Deconstruction</p>
-      </div>
-
-      <div class="master-header-actions">
-        <div class="room-info-pill">
-          <span>Room:</span>
-          <span class="room-code-tag" id="displayMasterRoomCode">FO-L6TH</span>
-          <button class="header-btn" style="padding:2px 6px;" onclick="openQrModal()">QR Code</button>
-        </div>
-        <button class="header-btn" onclick="toggleTheme()">Theme</button>
-        <button class="header-btn" onclick="openExportModal()">Export / OneNote</button>
-        <button class="header-btn" style="color:#fca5a5;" onclick="clearEventsConfirm()">Clear</button>
-      </div>
-    </header>
-
-    <div class="master-clock-bar">
-      <div class="clock-display-group">
-        <div class="master-timer" id="masterTimerDisplay">00:00:00</div>
-        <span class="clock-status-pill" id="masterTimerBadge">&#10074;&#10074; Paused</span>
-      </div>
-
-      <div class="master-timer-controls">
-        <button class="btn-timer primary" id="btnMasterPlay" onclick="toggleTimer()">
-          &#9654; Start Clock (Space)
-        </button>
-        <button class="btn-timer btn-nudge" onclick="nudgeTime(-10)">-10s</button>
-        <button class="btn-timer btn-nudge" onclick="nudgeTime(-5)">-5s</button>
-        <button class="btn-timer btn-nudge" onclick="nudgeTime(5)">+5s</button>
-        <button class="btn-timer btn-nudge" onclick="nudgeTime(10)">+10s</button>
-        <button class="btn-timer btn-nudge" onclick="jumpToPrompt()">Jump...</button>
-      </div>
-    </div>
-
-    <div class="master-grid-layout">
-      <div class="timeline-card">
-        <div class="card-head-row">
-          <span class="card-title">Real-Time Farce Swimlanes (LAUGHS)</span>
-          <span style="font-size:0.75rem; color:var(--text-dim);" id="totalEventsTag">0 Total Events</span>
-        </div>
-
-        <div class="swimlanes-wrap" id="swimlanesContainer">
-          <div class="master-cursor" id="masterCursor"></div>
-          
-          <div class="swimlane-row">
-            <span class="swimlane-label" style="color:var(--lead-color);">[L] Status (LEAD)</span>
-            <div class="swimlane-track" id="track-LEAD"></div>
-          </div>
-          <div class="swimlane-row">
-            <span class="swimlane-label" style="color:var(--arcs-color);">[A] Accelerando</span>
-            <div class="swimlane-track" id="track-ARCS"></div>
-          </div>
-          <div class="swimlane-row">
-            <span class="swimlane-label" style="color:var(--undo-color);">[U] Undercut</span>
-            <div class="swimlane-track" id="track-UNDO"></div>
-          </div>
-          <div class="swimlane-row">
-            <span class="swimlane-label" style="color:var(--gags-color);">[G] Grievances</span>
-            <div class="swimlane-track" id="track-GAGS"></div>
-          </div>
-          <div class="swimlane-row">
-            <span class="swimlane-label" style="color:var(--hide-color);">[H] Hidden Conflict</span>
-            <div class="swimlane-track" id="track-HIDE"></div>
-          </div>
-          <div class="swimlane-row">
-            <span class="swimlane-label" style="color:var(--step-color);">[S] Speed/Rhythm</span>
-            <div class="swimlane-track" id="track-STEP"></div>
-          </div>
-        </div>
-
-        <div class="scene-ruler">
-          <span>00:00 &bull; Act 1 Sc 1 (Bertozzo)</span>
-          <span>20:00 &bull; Act 1 Sc 2 (The Window)</span>
-          <span>38:00 &bull; Act 2 Sc 1 (Captain Disguise)</span>
-          <span>55:00 &bull; Act 2 Sc 2 (Feletti / Bombs)</span>
-          <span>1:12:57</span>
-        </div>
-      </div>
-
-      <div class="stream-card">
-        <div class="card-head-row">
-          <span class="card-title">Live Cohort Feed</span>
-          <span style="font-size:0.75rem; color:var(--accent-cyan);" id="streamTally">0 incoming</span>
-        </div>
-
-        <div class="stream-feed-list" id="masterFeedList">
-          <div style="font-size:0.8rem; color:var(--text-muted); text-align:center; padding:20px;">
-            Waiting for student taps...
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODALS -->
-  <div id="modalQr" class="modal-backdrop" onclick="closeModals(event)">
-    <div class="modal-card" onclick="event.stopPropagation()">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <h2 style="font-family:var(--font-display); font-size:1.2rem; color:#fff;">Scan to Join Studio</h2>
-        <button class="header-btn" onclick="closeModals()">&times;</button>
-      </div>
-      <p style="font-size:0.8rem; color:var(--text-dim);">
-        Students scan this QR code on their phone or tablet to open their assigned fast-tap remote.
-      </p>
-      <div class="qr-container" id="qrTarget"></div>
-      <div style="text-align:center;">
-        <span style="font-size:0.8rem; color:var(--text-dim);">Room Code: </span>
-        <strong style="color:var(--accent-cyan); font-size:1.1rem;" id="qrRoomCode">fo-l6th</strong>
-      </div>
-    </div>
-  </div>
-
-  <div id="modalExport" class="modal-backdrop" onclick="closeModals(event)">
-    <div class="modal-card" style="max-width:650px;" onclick="event.stopPropagation()">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <h2 style="font-family:var(--font-display); font-size:1.2rem; color:#fff;">Export Class Annotations</h2>
-        <button class="header-btn" onclick="closeModals()">&times;</button>
-      </div>
-      <p style="font-size:0.8rem; color:var(--text-dim);">
-        Copy directly into your Microsoft OneNote Class Notebook or download a CSV to align against the playtext.
-      </p>
-
-      <div style="display:flex; gap:10px;">
-        <button class="btn-block btn-primary" onclick="copyOneNoteTable()">
-          Copy OneNote Formatted Table
-        </button>
-        <button class="btn-block btn-teacher" onclick="downloadCsv()">
-          Download CSV Spreadsheet
-        </button>
-      </div>
-
-      <div style="max-height:220px; overflow-y:auto; background:var(--bg-card); padding:10px; border-radius:8px; font-size:0.75rem; border:1px solid var(--border-color); margin-top:10px;" id="exportPreviewBox"></div>
-    </div>
-  </div>
-
-  <div class="toast-box" id="toastBox">Event Logged!</div>
-
-  <!-- SCRIPT ENGINE -->
   <script>
-    const LAUGHS_TAXONOMY = {
+    const LAUGHS_DATA = {
       LEAD: {
         letter: 'L',
         name: 'Levels of Status',
         mnemonic: 'LEAD',
         color: '#3b82f6',
-        bg: 'rgba(59, 130, 246, 0.14)',
         class: 'lead',
         principles: [
           { code: '[E]', title: 'Enforced Power Divide', desc: 'Spatial dominance & captive entrapment' },
@@ -1145,7 +536,6 @@
         name: 'Acceleration',
         mnemonic: 'ARCS',
         color: '#f59e0b',
-        bg: 'rgba(245, 158, 11, 0.14)',
         class: 'arcs',
         principles: [
           { code: '[R]', title: 'Rapid Accelerando', desc: 'Movement & speech escalating into a frenzy' },
@@ -1158,7 +548,6 @@
         name: 'Undercut & Reset',
         mnemonic: 'UNDO',
         color: '#10b981',
-        bg: 'rgba(16, 185, 129, 0.14)',
         class: 'undo',
         principles: [
           { code: '[N]', title: 'Neutral Deadpan Snap', desc: 'Instant composure reset back to normal' },
@@ -1171,7 +560,6 @@
         name: 'Grievances & Traps',
         mnemonic: 'GAGS',
         color: '#ef4444',
-        bg: 'rgba(239, 68, 68, 0.14)',
         class: 'gags',
         principles: [
           { code: '[A]', title: 'Absurd Mortal Stakes', desc: 'Routine matter treated as life-or-death' },
@@ -1184,7 +572,6 @@
         name: 'Hidden Conflict',
         mnemonic: 'HIDE',
         color: '#8b5cf6',
-        bg: 'rgba(139, 92, 246, 0.14)',
         class: 'hide',
         principles: [
           { code: '[I]', title: 'Immobile Dead Freeze', desc: 'Sudden statue-like arrest in action' },
@@ -1197,7 +584,6 @@
         name: 'Speed & Rhythm',
         mnemonic: 'STEP',
         color: '#ec4899',
-        bg: 'rgba(236, 72, 153, 0.14)',
         class: 'step',
         principles: [
           { code: '[T]', title: 'Time Metronome', desc: 'Actions locked to strict kinetic/audio beat' },
@@ -1207,137 +593,49 @@
       }
     };
 
-    let currentRole = null;
-    let currentStudentName = 'Student';
-    let currentPillarKey = 'LEAD';
-    let currentRoomCode = 'fo-l6th';
-    
-    let isClockRunning = false;
-    let masterSeconds = 0;
-    let totalBroadcastDuration = 4377; // Exactly 1hr 12mins 57secs (4377 seconds)
-    let clockInterval = null;
-
-    let loggedEvents = [];
-    let sseSource = null;
-    let pollingInterval = null;
+    let activePillarKey = 'LEAD';
+    let isRunning = false;
+    let secondsElapsed = 0;
+    let timerInterval = null;
+    let myLogs = [];
 
     window.addEventListener('DOMContentLoaded', () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const room = urlParams.get('room');
-      const role = urlParams.get('role');
-      const pillar = urlParams.get('pillar');
-
-      if (room) {
-        document.getElementById('inputRoomCode').value = room.toLowerCase();
-        currentRoomCode = room.toLowerCase();
-      }
-
-      if (pillar && LAUGHS_TAXONOMY[pillar.toUpperCase()]) {
-        selectRow(pillar.toUpperCase());
-      }
-
-      if (role === 'teacher') {
-        openTeacherMaster();
-      }
-
-      window.addEventListener('keydown', (e) => {
-        if (currentRole === 'teacher') {
-          if (e.code === 'Space') {
-            e.preventDefault();
-            toggleTimer();
-          } else if (e.key === '[') {
-            nudgeTime(-5);
-          } else if (e.key === ']') {
-            nudgeTime(5);
-          }
-        }
-      });
+      renderButtons();
     });
 
-    function selectRow(pillarKey) {
-      currentPillarKey = pillarKey;
-      document.querySelectorAll('.row-pill-btn').forEach(btn => btn.classList.remove('selected'));
-      const activeBtn = document.querySelector(`.row-pill-btn.${LAUGHS_TAXONOMY[pillarKey].class}`);
+    function setRow(key) {
+      activePillarKey = key;
+      document.querySelectorAll('.row-btn').forEach(btn => btn.classList.remove('selected'));
+      const activeBtn = document.querySelector(`.row-btn.${LAUGHS_DATA[key].class}`);
       if (activeBtn) activeBtn.classList.add('selected');
+      renderButtons();
     }
 
-    function switchView(viewId) {
-      document.querySelectorAll('.view-container').forEach(v => v.classList.remove('active'));
-      document.getElementById(viewId).classList.add('active');
-    }
+    function renderButtons() {
+      const pData = LAUGHS_DATA[activePillarKey];
+      const wrap = document.getElementById('buttonsWrap');
+      wrap.innerHTML = '';
 
-    function joinAsStudent() {
-      const nameInput = document.getElementById('inputStudentName').value.trim();
-      currentStudentName = nameInput || 'Student';
-      currentRoomCode = document.getElementById('inputRoomCode').value.trim().toLowerCase() || 'fo-l6th';
-      currentRole = 'student';
-
-      const pillarData = LAUGHS_TAXONOMY[currentPillarKey];
-
-      document.getElementById('studentDisplayName').innerText = currentStudentName;
-      document.getElementById('studentAvatarLetter').innerText = pillarData.letter;
-      document.getElementById('studentAvatarLetter').style.backgroundColor = pillarData.color;
-      document.getElementById('studentRowTag').innerText = `Row [${pillarData.letter}] &mdash; ${pillarData.name}`;
-
-      const container = document.getElementById('studentButtonsContainer');
-      container.innerHTML = '';
-
-      pillarData.principles.forEach((p, idx) => {
+      pData.principles.forEach((p, idx) => {
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = `fast-tap-btn ${pillarData.class}`;
-        btn.onclick = () => recordTap(pillarData, p);
+        btn.className = `tap-btn ${pData.class}`;
+        btn.onclick = () => recordMoment(p);
 
         btn.innerHTML = `
-          <div class="fast-tap-code">
+          <div class="tap-btn-header">
             <span>${p.code}</span>
-            <span style="font-size:0.85rem; font-weight:700; opacity:0.8;">Principle ${idx + 1}</span>
+            <span style="font-size:0.75rem; opacity:0.8;">Principle ${idx + 1}</span>
           </div>
-          <div class="fast-tap-title">${p.title}</div>
-          <div class="fast-tap-desc">${p.desc}</div>
+          <div class="tap-btn-title">${p.title}</div>
+          <div class="tap-btn-desc">${p.desc}</div>
         `;
-        container.appendChild(btn);
+        wrap.appendChild(btn);
       });
-
-      startRealtimeListener();
-      switchView('viewStudent');
-    }
-
-    function recordTap(pillarData, principle) {
-      if ('vibrate' in navigator) navigator.vibrate(40);
-
-      const timestampStr = formatTime(masterSeconds);
-
-      const eventPayload = {
-        id: 'evt_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6),
-        type: 'annotation',
-        seconds: masterSeconds,
-        timestamp: timestampStr,
-        author: currentStudentName,
-        pillarKey: currentPillarKey,
-        pillarLetter: pillarData.letter,
-        pillarName: pillarData.name,
-        principleCode: principle.code,
-        principleTitle: principle.title
-      };
-
-      addEventToState(eventPayload);
-      broadcastEvent(eventPayload);
-      showToast(` Logged [${principle.code} ${principle.title}] at ${timestampStr}!`);
-    }
-
-    function openTeacherMaster() {
-      currentRole = 'teacher';
-      currentRoomCode = document.getElementById('inputRoomCode').value.trim().toLowerCase() || 'fo-l6th';
-      document.getElementById('displayMasterRoomCode').innerText = currentRoomCode.toUpperCase();
-
-      startRealtimeListener();
-      switchView('viewTeacher');
-      renderSwimlanes();
     }
 
     function toggleTimer() {
-      if (isClockRunning) {
+      if (isRunning) {
         pauseClock();
       } else {
         startClock();
@@ -1345,391 +643,142 @@
     }
 
     function startClock() {
-      isClockRunning = true;
-      const btn = document.getElementById('btnMasterPlay');
-      btn.innerHTML = '&#10074;&#10074; Pause Clock (Space)';
-      btn.classList.add('playing');
+      isRunning = true;
+      const btn = document.getElementById('btnPlayPause');
+      btn.innerHTML = '&#10074;&#10074; PAUSE';
+      btn.classList.add('running');
 
-      const badge = document.getElementById('masterTimerBadge');
-      badge.innerHTML = '&#9679; Running';
-      badge.classList.add('running');
-
-      if (!clockInterval) {
-        clockInterval = setInterval(() => {
-          masterSeconds += 0.25;
-          updateClockUI();
-
-          if (Math.round(masterSeconds * 4) % 8 === 0) {
-            broadcastClockSync();
-          }
-        }, 250);
+      if (!timerInterval) {
+        timerInterval = setInterval(() => {
+          secondsElapsed += 1;
+          updateClockDisplay();
+        }, 1000);
       }
-      broadcastClockSync();
     }
 
     function pauseClock() {
-      isClockRunning = false;
-      const btn = document.getElementById('btnMasterPlay');
-      btn.innerHTML = '&#9654; Start Clock (Space)';
-      btn.classList.remove('playing');
+      isRunning = false;
+      const btn = document.getElementById('btnPlayPause');
+      btn.innerHTML = '&#9654; RESUME';
+      btn.classList.remove('running');
 
-      const badge = document.getElementById('masterTimerBadge');
-      badge.innerHTML = '&#10074;&#10074; Paused';
-      badge.classList.remove('running');
-
-      if (clockInterval) {
-        clearInterval(clockInterval);
-        clockInterval = null;
-      }
-      broadcastClockSync();
-    }
-
-    function nudgeTime(deltaSeconds) {
-      masterSeconds = Math.max(0, masterSeconds + deltaSeconds);
-      updateClockUI();
-      broadcastClockSync();
-    }
-
-    function jumpToPrompt() {
-      const input = prompt('Enter timestamp to jump to (e.g. 14:30 or 01:15:00):', formatTime(masterSeconds));
-      if (input) {
-        const secs = parseTime(input);
-        if (!isNaN(secs)) {
-          masterSeconds = secs;
-          updateClockUI();
-          broadcastClockSync();
-        } else {
-          alert('Invalid timestamp format. Please use mm:ss or hh:mm:ss.');
-        }
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
       }
     }
 
-    function updateClockUI() {
-      const timeStr = formatTime(masterSeconds);
-      document.getElementById('masterTimerDisplay').innerText = timeStr;
-      
-      const studentClockEl = document.getElementById('studentClock');
-      if (studentClockEl) studentClockEl.innerText = timeStr;
-
-      const percent = Math.min(100, (masterSeconds / totalBroadcastDuration) * 100);
-      const cursor = document.getElementById('masterCursor');
-      if (cursor) cursor.style.left = percent + '%';
+    function nudge(delta) {
+      secondsElapsed = Math.max(0, secondsElapsed + delta);
+      updateClockDisplay();
     }
 
-    function broadcastClockSync() {
-      if (currentRole !== 'teacher') return;
-      const syncPayload = {
-        type: 'clock_sync',
-        running: isClockRunning,
-        seconds: masterSeconds,
-        sentAt: Date.now()
+    function resetTimer() {
+      if (confirm('Reset timer back to 00:00:00?')) {
+        pauseClock();
+        secondsElapsed = 0;
+        updateClockDisplay();
+        document.getElementById('btnPlayPause').innerHTML = '&#9654; START CLOCK (3, 2, 1, PLAY!)';
+      }
+    }
+
+    function updateClockDisplay() {
+      document.getElementById('clockDisplay').innerText = formatTime(secondsElapsed);
+    }
+
+    function recordMoment(principle) {
+      if ('vibrate' in navigator) navigator.vibrate(40);
+
+      const timeStr = formatTime(secondsElapsed);
+      const studentName = document.getElementById('studentNameInput').value.trim() || 'Student';
+      const pData = LAUGHS_DATA[activePillarKey];
+
+      // Determine Act/Scene based on 1:12:57 video breakdown
+      let actScene = 'Act 1 Sc 1 (Bertozzo)';
+      if (secondsElapsed >= 3300) actScene = 'Act 2 Sc 2 (Feletti / Bombs)';
+      else if (secondsElapsed >= 2280) actScene = 'Act 2 Sc 1 (Captain Disguise)';
+      else if (secondsElapsed >= 1200) actScene = 'Act 1 Sc 2 (The Window)';
+
+      const entry = {
+        id: Date.now() + Math.random(),
+        time: timeStr,
+        seconds: secondsElapsed,
+        student: studentName,
+        pillarLetter: pData.letter,
+        pillarName: pData.name,
+        color: pData.color,
+        code: principle.code,
+        title: principle.title,
+        actScene: actScene
       };
-      broadcastEvent(syncPayload, true);
+
+      myLogs.unshift(entry);
+      renderLogs();
+      showToast(`Logged ${principle.code} at ${timeStr}`);
     }
 
-    const isLocalServer = window.location.protocol.startsWith('http') && 
-                          (window.location.hostname === 'localhost' || 
-                           window.location.hostname === '127.0.0.1' || 
-                           window.location.hostname.startsWith('192.168.') || 
-                           window.location.hostname.startsWith('10.') ||
-                           window.location.port === '8000');
-
-    function getRelayEndpoint() {
-      return `https://ntfy.sh/teacherbrain_${currentRoomCode}`;
+    function deleteMoment(id) {
+      myLogs = myLogs.filter(item => item.id !== id);
+      renderLogs();
     }
 
-    function startRealtimeListener() {
-      if (isLocalServer) {
-        startLocalPolling();
+    function renderLogs() {
+      const container = document.getElementById('logList');
+      document.getElementById('logCountTag').innerText = `${myLogs.length} logged`;
+
+      if (myLogs.length === 0) {
+        container.innerHTML = '<div style="font-size:0.75rem; color:var(--text-muted); text-align:center; padding:12px;">No moments logged yet. Start the clock and tap when you see an element!</div>';
         return;
       }
 
-      const endpoint = getRelayEndpoint();
-
-      try {
-        if (sseSource) sseSource.close();
-        sseSource = new EventSource(`${endpoint}/sse`);
-
-        sseSource.onmessage = (event) => {
-          try {
-            const data = JSON.parse(event.data);
-            if (data && data.message) {
-              const payload = JSON.parse(data.message);
-              handleIncomingPayload(payload);
-            }
-          } catch (e) {}
-        };
-
-        sseSource.onerror = () => {
-          startHttpPolling();
-        };
-      } catch (err) {
-        startHttpPolling();
-      }
-    }
-
-    function startLocalPolling() {
-      if (pollingInterval) return;
-      pollingInterval = setInterval(async () => {
-        try {
-          const res = await fetch('/api/sync');
-          if (res.ok) {
-            const data = await res.json();
-            if (data.clock && currentRole === 'student') {
-              handleIncomingPayload(data.clock);
-            }
-            if (data.events && Array.isArray(data.events)) {
-              data.events.forEach(evt => addEventToState(evt));
-            }
-          }
-        } catch (e) {}
-      }, 1000);
-    }
-
-    function startHttpPolling() {
-      if (pollingInterval) return;
-      let lastPollTime = Math.floor(Date.now() / 1000) - 10;
-
-      pollingInterval = setInterval(async () => {
-        try {
-          const res = await fetch(`${getRelayEndpoint()}/json?poll=1&since=${lastPollTime}`);
-          if (res.ok) {
-            const lines = (await res.text()).trim().split('\n');
-            lastPollTime = Math.floor(Date.now() / 1000);
-            for (const line of lines) {
-              if (!line) continue;
-              const msgObj = JSON.parse(line);
-              if (msgObj.message) {
-                const payload = JSON.parse(msgObj.message);
-                handleIncomingPayload(payload);
-              }
-            }
-          }
-        } catch (e) {}
-      }, 2000);
-    }
-
-    async function broadcastEvent(payload, isClockOnly = false) {
-      if (isLocalServer) {
-        try {
-          await fetch('/api/broadcast', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          });
-        } catch (err) {
-          console.warn('Local broadcast failed', err);
-        }
-        return;
-      }
-
-      try {
-        await fetch(getRelayEndpoint(), {
-          method: 'POST',
-          headers: {
-            'Title': isClockOnly ? 'ClockSync' : 'LaughsAnnotation',
-            'Priority': isClockOnly ? '1' : '3'
-          },
-          body: JSON.stringify(payload)
-        });
-      } catch (err) {
-        console.warn('Sync POST failed', err);
-      }
-    }
-
-    function handleIncomingPayload(payload) {
-      if (!payload || !payload.type) return;
-
-      if (payload.type === 'clock_sync') {
-        if (currentRole === 'student') {
-          const latency = (Date.now() - payload.sentAt) / 1000;
-          masterSeconds = payload.seconds + (payload.running ? latency : 0);
-          isClockRunning = payload.running;
-          updateClockUI();
-        }
-      } else if (payload.type === 'annotation') {
-        addEventToState(payload);
-      }
-    }
-
-    function addEventToState(evt) {
-      if (loggedEvents.some(e => e.id === evt.id)) return;
-      loggedEvents.push(evt);
-
-      renderNewEventToFeeds(evt);
-      plotDotOnSwimlane(evt);
-      updateTotalCounts();
-    }
-
-    function renderNewEventToFeeds(evt) {
-      const pillarData = LAUGHS_TAXONOMY[evt.pillarKey] || LAUGHS_TAXONOMY.LEAD;
-
-      const masterList = document.getElementById('masterFeedList');
-      if (masterList) {
-        if (masterList.children.length === 1 && masterList.children[0].innerText.includes('Waiting for')) {
-          masterList.innerHTML = '';
-        }
-
-        const item = document.createElement('div');
-        item.className = `stream-event-item ${pillarData.class}`;
-        item.innerHTML = `
-          <div class="event-top">
-            <span class="event-time">${evt.timestamp}</span>
-            <span class="event-author">Row [${evt.pillarLetter}] &bull; ${evt.author}</span>
+      container.innerHTML = '';
+      myLogs.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'log-item';
+        row.style.borderLeftColor = item.color;
+        row.innerHTML = `
+          <div class="log-item-left">
+            <span class="log-time">${item.time}</span>
+            <span class="log-text">[${item.pillarLetter}] ${item.code} ${item.title}</span>
           </div>
-          <div class="event-principle">${evt.principleCode} ${evt.principleTitle}</div>
-          <div class="event-pillar-name" style="color:${pillarData.color};">${pillarData.name}</div>
+          <button type="button" class="log-del-btn" onclick="deleteMoment(${item.id})">&times;</button>
         `;
-        masterList.insertBefore(item, masterList.firstChild);
-      }
-
-      const studentFeed = document.getElementById('studentFeedList');
-      if (studentFeed) {
-        if (studentFeed.children.length === 1 && studentFeed.children[0].innerText.includes('Listening for')) {
-          studentFeed.innerHTML = '';
-        }
-
-        const pill = document.createElement('div');
-        pill.className = `ticker-pill ${pillarData.class}`;
-        pill.innerHTML = `
-          <span class="ticker-time">${evt.timestamp}</span>
-          <span class="ticker-text"><strong>${evt.principleCode}</strong> ${evt.principleTitle}</span>
-          <span class="ticker-author">${evt.author}</span>
-        `;
-        studentFeed.insertBefore(pill, studentFeed.firstChild);
-        
-        const countEl = document.getElementById('studentFeedCount');
-        if (countEl) countEl.innerText = `${loggedEvents.length} events`;
-      }
-    }
-
-    function plotDotOnSwimlane(evt) {
-      const track = document.getElementById(`track-${evt.pillarKey}`);
-      if (!track) return;
-
-      const percent = Math.min(100, Math.max(0, (evt.seconds / totalBroadcastDuration) * 100));
-      const pillarData = LAUGHS_TAXONOMY[evt.pillarKey];
-
-      const dot = document.createElement('div');
-      dot.className = 'swimlane-dot';
-      dot.style.left = `${percent}%`;
-      dot.style.color = pillarData.color;
-      dot.style.backgroundColor = pillarData.color;
-      dot.title = `${evt.timestamp} &mdash; ${evt.principleTitle} (${evt.author})`;
-
-      dot.onclick = () => {
-        masterSeconds = evt.seconds;
-        updateClockUI();
-        broadcastClockSync();
-      };
-
-      track.appendChild(dot);
-    }
-
-    function renderSwimlanes() {
-      Object.keys(LAUGHS_TAXONOMY).forEach(key => {
-        const track = document.getElementById(`track-${key}`);
-        if (track) track.innerHTML = '';
+        container.appendChild(row);
       });
-      loggedEvents.forEach(evt => plotDotOnSwimlane(evt));
-      updateTotalCounts();
     }
 
-    function updateTotalCounts() {
-      const countEl = document.getElementById('totalEventsTag');
-      if (countEl) countEl.innerText = `${loggedEvents.length} Total Events`;
-
-      const streamTally = document.getElementById('streamTally');
-      if (streamTally) streamTally.innerText = `${loggedEvents.length} logged`;
-    }
-
-    function openQrModal() {
-      const modal = document.getElementById('modalQr');
-      modal.classList.add('active');
-
-      const qrContainer = document.getElementById('qrTarget');
-      qrContainer.innerHTML = '';
-
-      const currentUrl = window.location.href.split('?')[0];
-      const joinUrl = `${currentUrl}?room=${encodeURIComponent(currentRoomCode)}`;
-      document.getElementById('qrRoomCode').innerText = currentRoomCode;
-
-      if (typeof QRCode !== 'undefined') {
-        new QRCode(qrContainer, {
-          text: joinUrl,
-          width: 200,
-          height: 200,
-          colorDark: '#0e4467',
-          colorLight: '#ffffff',
-          correctLevel: QRCode.CorrectLevel.M
-        });
-      } else {
-        qrContainer.innerHTML = `<div style="padding:20px; color:#000; text-align:center;">URL: ${joinUrl}</div>`;
-      }
-    }
-
-    function openExportModal() {
-      const modal = document.getElementById('modalExport');
-      modal.classList.add('active');
-
-      const preview = document.getElementById('exportPreviewBox');
-      if (loggedEvents.length === 0) {
-        preview.innerHTML = '<span style="color:var(--text-muted);">No annotations recorded yet.</span>';
+    function copyForOneNote() {
+      if (myLogs.length === 0) {
+        alert('You haven\'t logged any moments yet! Tap your buttons while watching.');
         return;
       }
 
-      let html = '<table style="width:100%; border-collapse:collapse; color:#fff;">';
-      html += '<thead><tr style="border-bottom:1px solid #475569;"><th style="text-align:left; padding:4px;">Time</th><th>Row</th><th style="text-align:left;">Technique</th><th>Student</th></tr></thead><tbody>';
-      
-      loggedEvents.slice(-15).forEach(e => {
-        html += `<tr style="border-bottom:1px dashed #334155;">
-          <td style="padding:4px; color:#38bdf8;">${e.timestamp}</td>
-          <td style="text-align:center;">[${e.pillarLetter}]</td>
-          <td>${e.principleCode} ${e.principleTitle}</td>
-          <td style="color:#94a3b8;">${e.author}</td>
-        </tr>`;
-      });
-      html += '</tbody></table>';
-      preview.innerHTML = html;
-    }
-
-    function closeModals(e) {
-      document.querySelectorAll('.modal-backdrop').forEach(m => m.classList.remove('active'));
-    }
-
-    function copyOneNoteTable() {
-      if (loggedEvents.length === 0) {
-        alert('No events to export yet!');
-        return;
-      }
-
+      // Build a clean, styled HTML table matching Dr Cleaves OneNote standard
       let tableHtml = `
         <table border="1" cellpadding="6" cellspacing="0" style="font-family:Calibri,Arial,sans-serif; border-collapse:collapse; width:100%;">
           <thead style="background-color:#1b365d; color:#ffffff;">
             <tr>
-              <th>Timestamp</th>
-              <th>Pillar (LAUGHS)</th>
-              <th>Comic Principle</th>
-              <th>Student Observer</th>
-              <th>Act / Scene Alignment</th>
+              <th style="padding:6px 10px;">Timestamp</th>
+              <th style="padding:6px 10px;">Row (LAUGHS)</th>
+              <th style="padding:6px 10px;">Comic Principle</th>
+              <th style="padding:6px 10px;">Student Observer</th>
+              <th style="padding:6px 10px;">Act / Scene Alignment</th>
             </tr>
           </thead>
           <tbody>
       `;
 
-      loggedEvents.forEach(e => {
-        let actScene = 'Act 1 Sc 1 (Bertozzo)';
-        if (e.seconds >= 3300) actScene = 'Act 2 Sc 2 (Feletti / Bombs)';
-        else if (e.seconds >= 2280) actScene = 'Act 2 Sc 1 (Captain Disguise)';
-        else if (e.seconds >= 1200) actScene = 'Act 1 Sc 2 (The Window)';
+      // Export in chronological order
+      const sortedLogs = [...myLogs].sort((a, b) => a.seconds - b.seconds);
 
+      sortedLogs.forEach(item => {
         tableHtml += `
           <tr>
-            <td style="text-align:center; font-weight:bold; color:#0284c7;">${e.timestamp}</td>
-            <td><strong>[${e.pillarLetter}]</strong> ${e.pillarName}</td>
-            <td><strong>${e.principleCode}</strong> ${e.principleTitle}</td>
-            <td>${e.author}</td>
-            <td style="font-style:italic;">${actScene}</td>
+            <td style="text-align:center; font-weight:bold; color:#0284c7; padding:6px 10px;">${item.time}</td>
+            <td style="padding:6px 10px;"><strong>[${item.pillarLetter}]</strong> ${item.pillarName}</td>
+            <td style="padding:6px 10px;"><strong>${item.code}</strong> ${item.title}</td>
+            <td style="padding:6px 10px;">${item.student}</td>
+            <td style="font-style:italic; padding:6px 10px;">${item.actScene}</td>
           </tr>
         `;
       });
@@ -1738,80 +787,28 @@
 
       const blobHtml = new Blob([tableHtml], { type: 'text/html' });
       const blobText = new Blob([tableHtml.replace(/<[^>]+>/g, '\t')], { type: 'text/plain' });
-      const item = new ClipboardItem({ 'text/html': blobHtml, 'text/plain': blobText });
+      const clipboardItem = new ClipboardItem({ 'text/html': blobHtml, 'text/plain': blobText });
 
-      navigator.clipboard.write([item]).then(() => {
-        showToast(' OneNote Formatted Table Copied to Clipboard!');
-        closeModals();
+      navigator.clipboard.write([clipboardItem]).then(() => {
+        showToast('Table copied! Now paste (Cmd+V) in OneNote.');
       }).catch(() => {
-        alert('Clipboard write failed. Please check browser permissions.');
+        alert('Please allow clipboard permissions to copy.');
       });
-    }
-
-    function downloadCsv() {
-      if (loggedEvents.length === 0) {
-        alert('No events to export yet!');
-        return;
-      }
-
-      let csv = 'Timestamp,Seconds,Pillar_Letter,Pillar_Name,Principle_Code,Principle_Title,Student_Name,Act_Scene\n';
-      loggedEvents.forEach(e => {
-        let actScene = 'Act 1 Scene 1';
-        if (e.seconds >= 3300) actScene = 'Act 2 Scene 2';
-        else if (e.seconds >= 2280) actScene = 'Act 2 Scene 1';
-        else if (e.seconds >= 1200) actScene = 'Act 1 Scene 2';
-
-        csv += `"${e.timestamp}",${Math.round(e.seconds)},"${e.pillarLetter}","${e.pillarName}","${e.principleCode}","${e.principleTitle}","${e.author}","${actScene}"\n`;
-      });
-
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `accidental_death_laughs_log_${currentRoomCode}.csv`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      showToast(' CSV Spreadsheet Downloaded!');
-      closeModals();
-    }
-
-    function clearEventsConfirm() {
-      if (confirm('Clear all logged annotations for this session?')) {
-        loggedEvents = [];
-        renderSwimlanes();
-        document.getElementById('masterFeedList').innerHTML = '<div style="font-size:0.8rem; color:var(--text-muted); text-align:center; padding:20px;">Timeline cleared.</div>';
-        showToast('Timeline cleared.');
-      }
-    }
-
-    function toggleTheme() {
-      document.body.classList.toggle('light-mode');
-    }
-
-    function showToast(msg) {
-      const box = document.getElementById('toastBox');
-      box.innerText = msg;
-      box.style.display = 'block';
-      setTimeout(() => { box.style.display = 'none'; }, 2500);
     }
 
     function formatTime(totalSeconds) {
-      const secs = Math.floor(totalSeconds % 60);
-      const mins = Math.floor((totalSeconds / 60) % 60);
-      const hrs = Math.floor(totalSeconds / 3600);
-
+      const s = Math.floor(totalSeconds % 60);
+      const m = Math.floor((totalSeconds / 60) % 60);
+      const h = Math.floor(totalSeconds / 3600);
       const pad = (n) => n.toString().padStart(2, '0');
-      return `${pad(hrs)}:${pad(mins)}:${pad(secs)}`;
+      return `${pad(h)}:${pad(m)}:${pad(s)}`;
     }
 
-    function parseTime(str) {
-      const parts = str.trim().split(':').map(Number);
-      if (parts.some(isNaN)) return NaN;
-      if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
-      if (parts.length === 2) return parts[0] * 60 + parts[1];
-      if (parts.length === 1) return parts[0];
-      return NaN;
+    function showToast(msg) {
+      const t = document.getElementById('toastBox');
+      t.innerText = msg;
+      t.style.display = 'block';
+      setTimeout(() => { t.style.display = 'none'; }, 2200);
     }
   </script>
 </body>
