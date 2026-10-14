@@ -26,7 +26,7 @@
       --text-dim: #94a3b8;
       --text-muted: #64748b;
 
-      /* LAUGHS Diagnostic Palette (Dr Cleaves Matrix Standard) */
+      /* LAUGHS Diagnostic Palette (Dr Cleaves Grid Standard) */
       --lead-color: #3b82f6; /* Levels of Status */
       --lead-glow: rgba(59, 130, 246, 0.35);
       --lead-bg: rgba(59, 130, 246, 0.14);
@@ -986,7 +986,7 @@
       <div class="master-title-group">
         <div class="master-title-row">
           <h1 class="master-title">Accidental Death of an Anarchist</h1>
-          <span class="master-badge">LAUGHS Matrix Live</span>
+          <span class="master-badge">LAUGHS Grid Live</span>
         </div>
         <p class="master-sub">Televised 1983 Gavin Richards / Belt & Braces Broadcast Deconstruction</p>
       </div>
@@ -1059,10 +1059,10 @@
 
         <div class="scene-ruler">
           <span>00:00 • Act 1 Sc 1 (Bertozzo)</span>
-          <span>28:30 • Act 1 Sc 2 (The Window)</span>
-          <span>54:15 • Act 2 Sc 1 (Captain Disguise)</span>
-          <span>1:18:20 • Act 2 Sc 2 (Feletti / Bombs)</span>
-          <span>1:42:00</span>
+          <span>20:00 • Act 1 Sc 2 (The Window)</span>
+          <span>38:00 • Act 2 Sc 1 (Captain Disguise)</span>
+          <span>55:00 • Act 2 Sc 2 (Feletti / Bombs)</span>
+          <span>1:12:57</span>
         </div>
       </div>
 
@@ -1214,7 +1214,7 @@
     
     let isClockRunning = false;
     let masterSeconds = 0;
-    let totalBroadcastDuration = 6120; // 102 mins
+    let totalBroadcastDuration = 4377; // Exactly 1hr 12mins 57secs (4377 seconds)
     let clockInterval = null;
 
     let loggedEvents = [];
@@ -1719,9 +1719,9 @@
 
       loggedEvents.forEach(e => {
         let actScene = 'Act 1 Sc 1 (Bertozzo)';
-        if (e.seconds >= 4680) actScene = 'Act 2 Sc 2 (Feletti / Bombs)';
-        else if (e.seconds >= 3255) actScene = 'Act 2 Sc 1 (Captain Disguise)';
-        else if (e.seconds >= 1710) actScene = 'Act 1 Sc 2 (The Window)';
+        if (e.seconds >= 3300) actScene = 'Act 2 Sc 2 (Feletti / Bombs)';
+        else if (e.seconds >= 2280) actScene = 'Act 2 Sc 1 (Captain Disguise)';
+        else if (e.seconds >= 1200) actScene = 'Act 1 Sc 2 (The Window)';
 
         tableHtml += `
           <tr>
@@ -1757,9 +1757,9 @@
       let csv = 'Timestamp,Seconds,Pillar_Letter,Pillar_Name,Principle_Code,Principle_Title,Student_Name,Act_Scene\n';
       loggedEvents.forEach(e => {
         let actScene = 'Act 1 Scene 1';
-        if (e.seconds >= 4680) actScene = 'Act 2 Scene 2';
-        else if (e.seconds >= 3255) actScene = 'Act 2 Scene 1';
-        else if (e.seconds >= 1710) actScene = 'Act 1 Scene 2';
+        if (e.seconds >= 3300) actScene = 'Act 2 Scene 2';
+        else if (e.seconds >= 2280) actScene = 'Act 2 Scene 1';
+        else if (e.seconds >= 1200) actScene = 'Act 1 Scene 2';
 
         csv += `"${e.timestamp}",${Math.round(e.seconds)},"${e.pillarLetter}","${e.pillarName}","${e.principleCode}","${e.principleTitle}","${e.author}","${actScene}"\n`;
       });
